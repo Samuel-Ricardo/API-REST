@@ -1,0 +1,16 @@
+{
+  "name": "api-rest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Samuel Ricardo",
+  "license": "MIT",
+  "git repository": "https://github.com/Samuel-Ricardo/API-REST.git",
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "express": "^4.17.1"
+  }
+}

@@ -1,4 +1,5 @@
 const Mongoose = require ('../DataBase/Connection');
+const bcryptjs = require ('bcryptjs');
 
 
 const UserSchema = new Mongoose.Schema({
@@ -26,6 +27,15 @@ const UserSchema = new Mongoose.Schema({
         default: Date.now,
     }
 });
+
+UserSchema.pre('save', async function(next){
+    
+    const hash = await bcryptjs.hash(this.password, 10)
+
+    this.password = hash
+
+    next();
+})
 
 const User = Mongoose.model('User', UserSchema); 
 

@@ -5,8 +5,9 @@ const crypto = require('crypto')
 
 const User = require ('../models/User');
 const AuthConfig = require('../../Config/auth.json');
-const { Router } = require('express');
+const Mailer = require('../../Modules/Mailer')
 
+const { Router } = require('express');
 const router = express.Router();
 
 function generateToken(params = {}){
@@ -68,7 +69,7 @@ router.post('/authenticate', async (req, res) => {
     
 })
 
-router.post('/forgot-password', async (req, res) => {
+router.post('/forgot_password', async (req, res) => {
 
     const { email } = req.body;
 
@@ -92,8 +93,21 @@ router.post('/forgot-password', async (req, res) => {
                 }
             })
 
+            Mailer.sendMail({
+
+                to: email,
+                from: 'samueldebarro@gmail.com',
+                template: 'auth/forgot_password',
+                context: { token }
+
+            },(erro) =>{
+
+            })
+
+            console.log(token, now);
+
     }catch(err){
-        return res.status(400).send({ error: 'Error: ' +err})
+        return res.status(400).send({ error: 'Error: ' +err+" Try Agwin"})
     }
 
 })

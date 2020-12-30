@@ -12,6 +12,7 @@ app.get('/', (req, res) =>{
 })
 
 require('./Controller/AuthController')(app);
+require('./Controller/ProjectController')(app);
 
 console.log('Servidor rodando em: http://localhost:3000/')
 app.listen(3000);

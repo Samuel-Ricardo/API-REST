@@ -27,7 +27,10 @@ const UserSchema = new Mongoose.Schema({
         select: false
     },
 
-    
+    passwordResetExpires: {
+        type: Date,
+        select: false
+    },
 
     createdAt: {
         type: Date,

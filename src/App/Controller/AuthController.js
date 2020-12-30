@@ -114,6 +114,13 @@ router.post('/forgot-password', async (req, res) => {
         return res.status(400).send({ error: 'Error: ' +err+" Try Agwin"})
     }
 
+    Router.post("/reset-password", async (req,res) =>{
+
+        const { email, token, password}
+
+            const user = await User.findOne({ email }).select("+passwordResetToken passwordResetExpires");
+    })
+
 })
 
 module.exports = app => app.use('/auth', router);

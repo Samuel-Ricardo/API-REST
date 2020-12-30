@@ -1,5 +1,6 @@
 const express = require('express');
-const bcryptjs = require('bcryptjs')
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 
 const User = require ('../models/User');
 
@@ -42,6 +43,8 @@ router.post('/authenticate', async (req, res) => {
     }
 
     user.password = undefined
+
+
     
     res.send({ user })
     

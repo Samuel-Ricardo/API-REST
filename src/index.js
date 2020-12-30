@@ -11,8 +11,7 @@ app.get('/', (req, res) =>{
     res.send('ok')
 })
 
-require('./Controller/AuthController')(app);
-require('./Controller/ProjectController')(app);
+require('./App/Controller/Index')(app);
 
 console.log('Servidor rodando em: http://localhost:3000/')
 app.listen(3000);

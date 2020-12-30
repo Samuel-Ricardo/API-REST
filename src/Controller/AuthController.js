@@ -41,7 +41,10 @@ router.post('/authenticate', async (req, res) => {
         return res.status(400).send({error: 'Invalid Password'})
     }
 
-    return { user }
+    user.password = undefined
+    
+    res.send({ user })
+    
 })
 
 module.exports = app => app.use('/auth', router);

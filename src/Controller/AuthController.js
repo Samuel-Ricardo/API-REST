@@ -7,6 +7,15 @@ const AuthConfig = require('../Config/auth.json')
 
 const router = express.Router();
 
+function generateToken(params = {}){
+
+    token = jwt.sign({id: params.id}, AuthConfig.secret,{
+        expiresIn: 86400
+    })
+
+    return token;
+}
+
 router.post('/register', async(req, res) => {
 
     const { email } = req.body;
@@ -45,9 +54,7 @@ router.post('/authenticate', async (req, res) => {
 
     user.password = undefined
 
-    token = jwt.sign({id: user.id}, AuthConfig.secret,{
-        expiresIn: 86400
-    })
+    
     
     res.send({ user, token })
     

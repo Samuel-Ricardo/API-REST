@@ -1,6 +1,7 @@
 const express = require('express');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto')
 
 const User = require ('../models/User');
 const AuthConfig = require('../../Config/auth.json');
@@ -78,7 +79,10 @@ router.post('/forgot-password', async (req, res) => {
         if(! user)
             return res.status(400).send({ error: 'User Not Found'});
 
+            const token = crypto.randomBytes(20).toString('hex')
+
             
+
 
     }catch(err){
         return res.status(400).send({ error: 'Error: ' +err})

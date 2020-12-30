@@ -16,6 +16,7 @@
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
+    "nodemailer": "^6.4.17",
     "path": "^0.12.7"
   }
 }

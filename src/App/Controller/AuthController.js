@@ -124,7 +124,8 @@ router.post('/forgot-password', async (req, res) => {
             return res.status(400).send({ error: 'User Not Found'});
 
 
-        
+        if( token ==! user.passwordResetToken)
+           return res.status(400).send({ error: 'Invalid Token'});
 
     })
 

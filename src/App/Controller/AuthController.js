@@ -85,6 +85,13 @@ router.post('/forgot-password', async (req, res) => {
             now.setHours(now.getHours() + 1);
 
 
+            await User.findByIdAndUpdate(user.id, {
+                '$set': {
+                    passwordResetToken: token,
+                    passwordResetExpires: now 
+                }
+            })
+
     }catch(err){
         return res.status(400).send({ error: 'Error: ' +err})
     }

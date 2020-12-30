@@ -114,9 +114,11 @@ router.post('/forgot-password', async (req, res) => {
         return res.status(400).send({ error: 'Error: ' +err+" Try Agwin"})
     }
 
-    Router.post("/reset-password", async (req,res) =>{
+})
 
-        const { email, token, password}
+    router.post("/reset-password", async (req,res) =>{
+
+        const { email, token, password} = req.body
 
             const user = await User.findOne({ email }).select("+passwordResetToken passwordResetExpires");
 
@@ -131,8 +133,12 @@ router.post('/forgot-password', async (req, res) => {
 
         if (now > user.passwordResetExpires)
             return res.status(400).send({ error: 'Token expired, generate a new one'});
-    })
 
-})
+            user.password = password;
+
+        await user.save();
+
+        res.send({user})
+    })
 
 module.exports = app => app.use('/auth', router);

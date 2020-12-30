@@ -119,6 +119,13 @@ router.post('/forgot-password', async (req, res) => {
         const { email, token, password}
 
             const user = await User.findOne({ email }).select("+passwordResetToken passwordResetExpires");
+
+        if(! user)
+            return res.status(400).send({ error: 'User Not Found'});
+
+
+        
+
     })
 
 })

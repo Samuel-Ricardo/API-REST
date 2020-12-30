@@ -69,7 +69,7 @@ router.post('/authenticate', async (req, res) => {
     
 })
 
-router.post('/forgot_password', async (req, res) => {
+router.post('/forgot-password', async (req, res) => {
 
     const { email } = req.body;
 
@@ -97,13 +97,13 @@ router.post('/forgot_password', async (req, res) => {
 
                 to: email,
                 from: 'samueldebarro@gmail.com',
-                template: 'auth/forgot_password',
+                template: 'Auth/forgot_password',
                 context: { token }
 
-            },(erro) =>{
+            },(error) =>{
 
-                if(err)
-                    return res.status(400).send({ Error: "Cannot Send Forgot Password Email: "+err})
+                if(error)
+                    return res.status(400).send({ Error: "Cannot Send Forgot Password Email: "+error})
 
                    return res.send()
             })

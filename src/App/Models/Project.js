@@ -1,6 +1,6 @@
 const Mongoose = require("../../DataBase/Connection")
 
-const ProjectSchema = Mongoose.Schema({
+const ProjectSchema = new Mongoose.Schema({
 
     title: {
         type: String,

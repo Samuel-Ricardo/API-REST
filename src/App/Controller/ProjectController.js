@@ -14,7 +14,19 @@ Router.get('/', (req, res) => {
 })
 
 Router.post('/create', (req, res) =>{
-    const
+   
+    try {
+        
+        const project = Project.create(req.body)
+
+          res.status(200).send({project})
+
+    } catch (err) {
+
+        console.log(err)
+        
+        res.status(400).send({error: "Error on create a project: "+err})
+    }
 })
 
 module.exports = app => app.use('/project', Router)

@@ -29,3 +29,6 @@ const TaskSchema = new Mongoose.Schema({
     }
 });
 
+const Task = Mongoose.model('Task', TaskSchema)
+
+module.exports = Task

@@ -2,6 +2,7 @@ const Express = require('express');
 
 const authMiddleware = require('../Middlewares/Auth');
 const Project = require('../Models/Project')
+const Task = require('../Models/Task')
 
 const Router = Express.Router();
 
@@ -12,7 +13,7 @@ Router.get('/', async (req, res) => {
 
     try {
         
-        const projects =  await Project.find().populate('user')
+        const projects =  await Project.find().populate('user tasks')
     
 
          res.status(200).send({ projects })
@@ -38,15 +39,50 @@ Router.get('/:projectId', async (req, res) => {
 
         console.log(err)
         
-        res.status(400).send({error: "Error on find projects: "+err})
+        res.status(400).send({error: "Error on find project: "+err})
+    }
+})
+
+Router.delete('/:projectId', async (req, res) => {
+
+    try {
+        
+         await Project.findByIdAndDelete(req.params.projectId)
+    
+
+         res.status(200).send({ deleted: true })
+
+    } catch (err) {
+
+        console.log(err)
+        
+        res.status(400).send({error: "Error on delete projects: "+err})
     }
 })
 
 Router.post('/create', async (req, res) =>{
    
     try {
+
+        const { title, description, tasks } = req.body
         
-        const project = await Project.create({... req.body, user: req.userId})
+        const project = await Project.create(
+            {
+                title,
+                description,
+                user: req.userId
+            })
+
+            await Promise.all(tasks.map(async task => {
+
+                const projectTask = new Task({... task, project: project._id})
+
+                await projectTask.save();
+
+                project.tasks.push(projectTask)
+            }))
+
+            await project.save()
 
           res.status(200).send({project})
 

@@ -12,7 +12,24 @@ Router.get('/', async (req, res) => {
 
     try {
         
-        const projects =  await Project.find()
+        const projects =  await Project.find().populate('user')
+    
+
+         res.status(200).send({ projects })
+
+    } catch (err) {
+
+        console.log(err)
+        
+        res.status(400).send({error: "Error on find projects: "+err})
+    }
+})
+
+Router.get('/:projectId', async (req, res) => {
+
+    try {
+        
+        const projects =  await Project.findById(req.params.projectId).populate('user')
     
 
          res.status(200).send({ projects })

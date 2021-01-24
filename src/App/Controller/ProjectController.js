@@ -13,7 +13,7 @@ Router.get('/', async (req, res) => {
 
     try {
         
-        const projects =  await Project.find().populate(['user', 'tasks'])
+        const projects =  await Project.find().populate(['tasks', 'user'])
     
 
          res.status(200).send({ projects })

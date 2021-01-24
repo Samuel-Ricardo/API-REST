@@ -8,16 +8,28 @@ const Router = Express.Router();
 
 Router.use(authMiddleware)
 
-Router.get('/', (req, res) => {
+Router.get('/', async (req, res) => {
 
-    res.send({ ok: true, user: req.userId })
+    try {
+        
+        const projects =  await Project.find()
+    
+
+         res.status(200).send({ projects })
+
+    } catch (err) {
+
+        console.log(err)
+        
+        res.status(400).send({error: "Error on find projects: "+err})
+    }
 })
 
-Router.post('/create', (req, res) =>{
+Router.post('/create', async (req, res) =>{
    
     try {
         
-        const project = Project.create(req.body)
+        const project = await Project.create({... req.body, user: req.userId})
 
           res.status(200).send({project})
 
